@@ -1,0 +1,567 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Augustine Alfred Aba | Microsoft Cloud Security, Pen Testing & QA</title>
+<meta name="description" content="Augustine Alfred Aba: Microsoft cloud security (Entra ID and Azure IAM), penetration testing, QA and software testing, and custom security tools. Lagos, Nigeria, working remotely.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     THEME: change these colours to restyle the whole site
+     ============================================================ */
+  :root{
+    --bg:#FBFBF9;
+    --bg-2:#F3F2EC;
+    --ink:#141413;
+    --ink-2:#55544F;
+    --ink-3:#8A8983;
+    --line:#E5E5E0;
+    --accent:#C85A32;         /* burnt orange. Swap for #2563EB (cobalt) if you prefer */
+    --accent-soft:#F6E6DE;
+    --ok:#2F7D4F;
+    --serif:"Instrument Serif", Georgia, serif;
+    --sans:"Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --mono:"JetBrains Mono", ui-monospace, Menlo, monospace;
+    --gutter:clamp(16px,4vw,40px);
+    --max:1240px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth;scroll-padding-top:72px}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 var(--sans);-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  img,svg{display:block;max-width:100%}
+  ::selection{background:var(--accent);color:#fff}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 var(--gutter)}
+  .grid12{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:24px}
+  .eyebrow{font:500 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+  .serif{font-family:var(--serif);font-weight:400}
+  em{font-family:var(--serif);font-style:italic;font-weight:400}
+
+  /* ---------- NAV ---------- */
+  .nav{position:sticky;top:0;z-index:50;background:rgba(251,251,249,.88);backdrop-filter:saturate(1.2) blur(10px);border-bottom:1px solid var(--line)}
+  .nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;gap:16px}
+  .brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+  .mono{width:34px;height:34px;border:1px solid var(--ink);border-radius:50%;display:grid;place-items:center;font:20px/1 var(--serif)}
+  .brand span{font-weight:600;font-size:15px;letter-spacing:-.01em}
+  .nav-right{display:flex;align-items:center;gap:22px}
+  .nav-links{display:flex;gap:22px}
+  .nav-links a{font-size:14px;color:var(--ink-2);text-decoration:none;position:relative;padding:4px 0;transition:color .2s}
+  .nav-links a::after{content:"";position:absolute;left:0;bottom:-2px;height:1px;width:100%;background:var(--ink);transform:scaleX(0);transform-origin:left;transition:transform .3s ease}
+  .nav-links a:hover,.nav-links a.active{color:var(--ink)}
+  .nav-links a.active::after,.nav-links a:hover::after{transform:scaleX(1)}
+  .badge{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;color:var(--ink-2);border:1px solid var(--line);border-radius:999px;padding:6px 12px;background:var(--bg);white-space:nowrap}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--ok);position:relative}
+  .dot::after{content:"";position:absolute;inset:-4px;border-radius:50%;background:var(--ok);opacity:.35;animation:pulse 2s ease-out infinite}
+  @keyframes pulse{0%{transform:scale(.5);opacity:.5}100%{transform:scale(1.6);opacity:0}}
+  .btn{display:inline-flex;align-items:center;gap:8px;font:500 14px/1 var(--sans);text-decoration:none;border-radius:999px;padding:12px 20px;border:1px solid var(--ink);transition:transform .2s ease, background .2s, color .2s;cursor:pointer;background:none;color:var(--ink)}
+  .btn:hover{transform:translateY(-2px)}
+  .btn.solid{background:var(--ink);color:var(--bg)}
+  .btn.solid:hover{background:var(--accent);border-color:var(--accent)}
+  .btn.sm{padding:8px 14px;font-size:13px}
+  .btn .arr{transition:transform .2s}
+  .btn:hover .arr{transform:translateX(3px)}
+  .menu-btn{display:none;background:none;border:1px solid var(--line);border-radius:8px;padding:8px 10px;font:500 13px var(--sans);cursor:pointer;color:var(--ink)}
+
+  /* ---------- HERO ---------- */
+  .hero{padding:clamp(56px,10vw,120px) 0 0}
+  .hero .eyebrow{grid-column:1/-1;margin-bottom:28px}
+  .hero h1{grid-column:1/11;font:400 clamp(44px,7.4vw,104px)/.98 var(--serif);letter-spacing:-.02em;margin:0}
+  .hero h1 em{color:var(--accent)}
+  .hero-sub{grid-column:1/7;margin-top:36px;font-size:18px;color:var(--ink-2);max-width:560px}
+  .hero-cta{grid-column:1/7;margin-top:30px;display:flex;gap:12px;flex-wrap:wrap;align-items:flex-start;align-self:start}
+  .hero-meta{grid-column:9/13;align-self:end;margin-top:36px;border-left:1px solid var(--line);padding-left:20px;font-size:14px;color:var(--ink-2)}
+  .hero-meta div{padding:8px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:12px}
+  .hero-meta div:last-child{border-bottom:0}
+  .hero-meta b{font-weight:500;color:var(--ink)}
+
+  .stats{margin-top:clamp(56px,8vw,96px);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .stats .grid12>div{grid-column:span 3;padding:26px 20px 26px 0;border-right:1px solid var(--line)}
+  .stats .grid12>div+div{padding-left:20px}
+  .stats .grid12>div:last-child{border-right:0}
+  .stat-n{font:400 clamp(40px,5vw,56px)/1 var(--serif)}
+  .stat-l{font-size:13.5px;color:var(--ink-2);margin-top:8px}
+
+  /* ---------- SECTIONS ---------- */
+  section{padding:clamp(72px,10vw,128px) 0 0}
+  .sec-head{align-items:end;margin-bottom:44px}
+  .sec-head .eyebrow{grid-column:1/4}
+  .sec-head h2{grid-column:4/11;font:400 clamp(36px,5vw,60px)/1.02 var(--serif);letter-spacing:-.015em;margin:0}
+  .sec-head p{grid-column:4/10;color:var(--ink-2);margin:18px 0 0}
+
+  /* ---------- WORK ---------- */
+  .work{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px}
+  .case{grid-column:span 6;display:flex;flex-direction:column;text-decoration:none;border:1px solid var(--line);border-radius:14px;background:#fff;overflow:hidden;transition:transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s, border-color .35s}
+  .case.wide{grid-column:span 7}
+  .case.narrow{grid-column:span 5}
+  .case:hover{transform:translateY(-6px);box-shadow:0 22px 40px -24px rgba(20,20,19,.28);border-color:#D6D5CE}
+  .thumb{position:relative;aspect-ratio:16/10;background:var(--bg-2);border-bottom:1px solid var(--line);overflow:hidden}
+  .thumb > *{transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+  .case:hover .thumb > *{transform:scale(1.025)}
+  .thumb img{width:100%;height:100%;object-fit:cover}
+  .case-body{padding:22px 24px 24px;display:flex;flex-direction:column;gap:10px;flex:1}
+  .tag{font:500 11.5px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+  .case h3{font:400 30px/1.1 var(--serif);margin:0}
+  .case p{margin:0;color:var(--ink-2);font-size:15px}
+  .case-foot{margin-top:auto;padding-top:14px;display:flex;justify-content:space-between;align-items:center;font-size:13.5px;border-top:1px solid var(--line)}
+  .case-foot .yr{color:var(--ink-3);font-family:var(--mono);font-size:12px}
+  .case-foot .go{display:inline-flex;align-items:center;gap:6px;font-weight:500}
+  .case-foot .go i{font-style:normal;display:inline-block;transition:transform .25s}
+  .case:hover .go i{transform:translate(3px,-3px)}
+
+  /* mock previews inside thumbnails */
+  .mock{position:absolute;inset:0;padding:22px;display:flex;align-items:center;justify-content:center}
+  .win{width:100%;height:100%;background:#fff;border:1px solid var(--line);border-radius:10px;box-shadow:0 12px 30px -18px rgba(20,20,19,.25);overflow:hidden;display:flex;flex-direction:column}
+  .win-bar{display:flex;gap:6px;align-items:center;padding:9px 12px;border-bottom:1px solid var(--line)}
+  .win-bar i{width:8px;height:8px;border-radius:50%;background:#DEDDD6}
+  .win-bar span{margin-left:8px;font:11px var(--mono);color:var(--ink-3)}
+  .dash{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;padding:14px}
+  .kpi{border:1px solid var(--line);border-radius:8px;padding:10px}
+  .kpi b{display:block;font:400 22px/1 var(--serif)}
+  .kpi small{font-size:10.5px;color:var(--ink-3)}
+  .rows{padding:0 14px 14px;display:grid;gap:7px}
+  .row{display:flex;align-items:center;gap:10px;font-size:11.5px;color:var(--ink-2);border:1px solid var(--line);border-radius:6px;padding:7px 9px}
+  .pill{font:500 9.5px/1 var(--mono);padding:4px 6px;border-radius:4px;text-transform:uppercase}
+  .p-h{background:var(--accent-soft);color:var(--accent)}
+  .p-m{background:#F3EEDA;color:#8A6A12}
+  .p-l{background:#E3EFE7;color:var(--ok)}
+  .row em{margin-left:auto;font:10.5px var(--mono);font-style:normal;color:var(--ink-3)}
+  .term{background:#141413;color:#D9D8D1;font:11.5px/1.7 var(--mono);padding:16px;height:100%;overflow:hidden}
+  .term .c{color:#8A8983}.term .a{color:#E58A63}.term .g{color:#8FC6A0}
+
+  /* ---------- PROCESS ---------- */
+  .process{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--ink)}
+  .step{padding:26px 24px 30px 0;border-right:1px solid var(--line);position:relative;transition:background .3s}
+  .step+.step{padding-left:24px}
+  .step:last-child{border-right:0}
+  .step .n{font:400 15px var(--mono);color:var(--accent)}
+  .step h3{font:400 28px/1.1 var(--serif);margin:14px 0 10px}
+  .step p{margin:0;color:var(--ink-2);font-size:15px}
+  .step::before{content:"";position:absolute;top:-1px;left:0;height:2px;width:0;background:var(--accent);transition:width .5s ease}
+  .step:hover::before{width:100%}
+
+  /* ---------- ABOUT ---------- */
+  .about-l{grid-column:1/7}
+  .about-r{grid-column:8/13}
+  .about-l p{font-size:18px;color:var(--ink-2);margin:0 0 18px}
+  .about-l p:first-child{font:400 clamp(26px,2.8vw,34px)/1.25 var(--serif);color:var(--ink)}
+  .principles{margin-top:34px;border-top:1px solid var(--line)}
+  .principles > div{display:grid;grid-template-columns:44px 1fr;gap:12px;padding:16px 0;border-bottom:1px solid var(--line)}
+  .principles span{font:13px var(--mono);color:var(--accent);padding-top:3px}
+  .principles b{font-weight:500}
+  .principles p{margin:2px 0 0;font-size:15px}
+  .tool-group{padding:18px 0;border-top:1px solid var(--line)}
+  .tool-group:last-child{border-bottom:1px solid var(--line)}
+  .tool-group h4{margin:0 0 10px;font:500 12px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+  .chips{display:flex;flex-wrap:wrap;gap:6px}
+  .chips span{font-size:13px;border:1px solid var(--line);border-radius:999px;padding:4px 11px;background:#fff;transition:border-color .2s,color .2s}
+  .chips span:hover{border-color:var(--accent);color:var(--accent)}
+
+  .portrait{margin:0 0 36px;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--bg-2);aspect-ratio:4/4.3}
+  .portrait img{width:100%;height:100%;object-fit:cover;object-position:center 20%;filter:grayscale(.15);transition:filter .5s, transform .8s cubic-bezier(.2,.7,.2,1)}
+  .portrait:hover img{filter:none;transform:scale(1.02)}
+  .quote{margin:0;border-top:1px solid var(--ink);padding-top:36px}
+  .quote blockquote{grid-column:1/10;margin:0;font:400 clamp(26px,3.2vw,42px)/1.22 var(--serif);letter-spacing:-.01em}
+  .quote blockquote::before{content:"\201C";display:block;font:400 96px/.5 var(--serif);color:var(--accent);margin-bottom:0;height:40px}
+  .quote figcaption{grid-column:1/10;margin-top:28px;display:flex;flex-wrap:wrap;align-items:center;gap:14px 24px;font-size:15px;color:var(--ink-2)}
+  .quote figcaption b{color:var(--ink);font-weight:500}
+  @media (max-width:960px){.quote blockquote,.quote figcaption{grid-column:1/-1}}
+  .timeline{margin-top:64px}
+  .tl-row{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:24px;padding:22px 0;border-top:1px solid var(--line);transition:background .25s}
+  .tl-row:last-child{border-bottom:1px solid var(--line)}
+  .tl-row:hover{background:var(--bg-2)}
+  .tl-yr{grid-column:1/3;font:13px var(--mono);color:var(--ink-3);padding-top:4px}
+  .tl-role{grid-column:3/7;font:400 24px/1.2 var(--serif)}
+  .tl-role small{display:block;font:14px var(--sans);color:var(--ink-3);margin-top:4px}
+  .tl-desc{grid-column:7/13;color:var(--ink-2);font-size:15px}
+
+  /* ---------- CONTACT ---------- */
+  .contact{padding:clamp(80px,12vw,150px) 0 0}
+  .cta{font:400 clamp(48px,8.5vw,128px)/.95 var(--serif);letter-spacing:-.025em;margin:22px 0 40px}
+  .cta em{color:var(--accent)}
+  .contact-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+  .mail{font:400 clamp(22px,3vw,34px)/1.2 var(--serif);text-decoration:none;border-bottom:1px solid var(--ink);margin-right:8px;word-break:break-all}
+  .mail:hover{color:var(--accent);border-color:var(--accent)}
+  .copied{font-size:13px;color:var(--ok);opacity:0;transition:opacity .2s}
+  .copied.show{opacity:1}
+  footer{margin-top:clamp(80px,10vw,120px);border-top:1px solid var(--line);padding:26px 0 34px;font-size:13.5px;color:var(--ink-3)}
+  footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  footer a{text-decoration:none}
+  footer a:hover{color:var(--ink)}
+
+  /* reveal on scroll */
+  .rv{opacity:0;transform:translateY(16px);transition:opacity .7s ease, transform .7s ease}
+  .rv.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:960px){
+    .hero h1{grid-column:1/-1}
+    .hero-sub,.hero-cta{grid-column:1/-1}
+    .hero-meta{grid-column:1/-1;border-left:0;padding-left:0;border-top:1px solid var(--line)}
+    .sec-head .eyebrow{grid-column:1/-1;margin-bottom:14px}
+    .sec-head h2,.sec-head p{grid-column:1/-1}
+    .case,.case.wide,.case.narrow{grid-column:span 12}
+    .process{grid-template-columns:1fr 1fr}
+    .step:nth-child(2){border-right:0}
+    .step:nth-child(3){padding-left:0;border-top:1px solid var(--line)}
+    .step:nth-child(4){border-top:1px solid var(--line)}
+    .about-l,.about-r{grid-column:1/-1}
+    .about-r{margin-top:40px}
+    .tl-yr{grid-column:1/-1}
+    .tl-role{grid-column:1/-1;margin:4px 0 8px}
+    .tl-desc{grid-column:1/-1}
+    .stats .grid12>div{grid-column:span 6}
+    .stats .grid12>div:nth-child(2){border-right:0}
+    .stats .grid12>div:nth-child(3){padding-left:0;border-top:1px solid var(--line)}
+    .stats .grid12>div:nth-child(4){border-top:1px solid var(--line)}
+  }
+  @media (max-width:780px){
+    .nav-links{display:none;position:absolute;top:64px;left:0;right:0;flex-direction:column;gap:0;background:var(--bg);border-bottom:1px solid var(--line);padding:8px var(--gutter) 16px}
+    .nav-links.open{display:flex}
+    .nav-links a{padding:12px 0;border-bottom:1px solid var(--line)}
+    .nav-links a::after{display:none}
+    .menu-btn{display:block}
+    .nav .badge{display:none}
+    .brand span{display:none}
+  }
+  @media (max-width:560px){
+    .process{grid-template-columns:1fr}
+    .step,.step+.step{padding-left:0;border-right:0;border-top:1px solid var(--line)}
+    .dash{grid-template-columns:1fr 1fr}
+    .dash .kpi:nth-child(3){display:none}
+  }
+</style>
+</head>
+<body>
+
+<!-- =================== NAVIGATION =================== -->
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Augustine Alfred Aba, home">
+      <div class="mono">A</div>
+      <span>Augustine Alfred Aba</span>
+    </a>
+    <div class="nav-right">
+      <nav class="nav-links" id="navlinks" aria-label="Main">
+        <a href="#work">Work</a>
+        <a href="#about">About</a>
+        <a href="#process">Process</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <span class="badge"><span class="dot"></span>Available for remote roles</span>
+      <a class="btn sm" href="resume.pdf" target="_blank" rel="noopener">Resume</a>
+      <button class="menu-btn" id="menubtn" aria-expanded="false" aria-controls="navlinks">Menu</button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- =================== HERO =================== -->
+<section class="hero" style="padding-top:clamp(56px,10vw,120px)">
+  <div class="wrap grid12">
+    <div class="eyebrow">Microsoft Cloud Security · Penetration Testing · QA</div>
+    <h1>I make Microsoft cloud access <em>least&#8209;privilege</em>, and the software around it <em>well&#8209;tested</em>.</h1>
+    <p class="hero-sub">Cybersecurity practitioner (CNSP) working across Entra ID and Azure IAM, penetration testing, QA and custom security tools. I build things carefully, test them properly and explain them clearly.</p>
+    <div class="hero-cta">
+      <a class="btn solid" href="#work">View selected work <span class="arr">→</span></a>
+      <a class="btn" href="#contact">Get in touch</a>
+    </div>
+    <div class="hero-meta">
+      <div><span>Based in</span><b>Lagos, Nigeria</b></div>
+      <div><span>Works</span><b>Remote, worldwide</b></div>
+      <div><span>Open to</span><b>Azure IAM · QA · Tooling</b></div>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="wrap grid12">
+      <div><div class="stat-n">536</div><div class="stat-l">automated tests written for CloudSecura</div></div>
+      <div><div class="stat-n">85%</div><div class="stat-l">Network+ pass rate across 30+ students taught</div></div>
+      <div><div class="stat-n">2</div><div class="stat-l">penetration testing internships</div></div>
+      <div><div class="stat-n">20+</div><div class="stat-l">red team challenges completed on TryHackMe</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== SELECTED WORK =================== -->
+<section id="work">
+  <div class="wrap">
+    <div class="grid12 sec-head">
+      <div class="eyebrow">01 / Selected work</div>
+      <h2>Projects that show how I <em>think</em>, build and test.</h2>
+    </div>
+
+    <div class="work">
+
+      <!-- ===== CASE 1 =====
+           SWAP THUMBNAIL: replace the whole <div class="mock">...</div> with
+           <img src="images/cloudsecura.png" alt="CloudSecura dashboard">
+           SWAP LINK: change href="#" to your case study page, e.g. case-studies/cloudsecura.html -->
+      <a class="case wide rv" href="#">
+        <div class="thumb">
+          <div class="mock">
+            <div class="win">
+              <div class="win-bar"><i></i><i></i><i></i><span>cloudsecura / scan report</span></div>
+              <div class="dash">
+                <div class="kpi"><b>7</b><small>read-only permissions</small></div>
+                <div class="kpi"><b>3</b><small>frameworks mapped</small></div>
+                <div class="kpi"><b>536</b><small>tests passing</small></div>
+              </div>
+              <div class="rows">
+                <div class="row"><span class="pill p-h">High</span>Storage account allows public blob access<em>CIS 3.7</em></div>
+                <div class="row"><span class="pill p-m">Med</span>Azure SQL auditing disabled<em>NIST DE.CM</em></div>
+                <div class="row"><span class="pill p-l">Low</span>Defender plan not enabled on subscription<em>SOC 2</em></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="case-body">
+          <div class="tag">Freelance · Azure security platform · 2026</div>
+          <h3>CloudSecura</h3>
+          <p>A read-only platform that audits clients' Azure subscriptions for a cloud security consultancy, with reports mapped to CIS Benchmarks, NIST CSF 2.0 and SOC 2, shipped with 536 automated tests.</p>
+          <div class="case-foot"><span class="yr">Entra ID · Python · React · PostgreSQL</span><span class="go">Case study <i>↗</i></span></div>
+        </div>
+      </a>
+
+      <!-- ===== CASE 2 ===== -->
+      <a class="case narrow rv" href="https://github.com/cyber39glt/breachgraph-ai" target="_blank" rel="noopener">
+        <div class="thumb">
+          <div class="mock">
+            <svg viewBox="0 0 320 200" width="100%" height="100%" aria-hidden="true">
+              <g stroke="#D6D5CE" stroke-width="1.2" fill="none">
+                <path d="M40 100 L110 50"/><path d="M40 100 L110 150"/><path d="M110 150 L190 150"/>
+                <path d="M190 150 L270 110"/><path d="M110 50 L190 70"/><path d="M190 70 L270 110"/>
+              </g>
+              <g stroke="#C85A32" stroke-width="2.2" fill="none" stroke-dasharray="5 4">
+                <path d="M40 100 L110 50"/><path d="M110 50 L190 70"/><path d="M190 70 L270 110"/>
+              </g>
+              <g font-family="JetBrains Mono, monospace" font-size="9" fill="#55544F" text-anchor="middle">
+                <circle cx="40" cy="100" r="16" fill="#fff" stroke="#141413"/><text x="40" y="128">user</text>
+                <circle cx="110" cy="50" r="13" fill="#fff" stroke="#C85A32"/><text x="110" y="28">role</text>
+                <circle cx="110" cy="150" r="13" fill="#fff" stroke="#141413"/><text x="110" y="178">group</text>
+                <circle cx="190" cy="70" r="13" fill="#fff" stroke="#C85A32"/><text x="190" y="48">policy</text>
+                <circle cx="190" cy="150" r="13" fill="#fff" stroke="#141413"/><text x="190" y="178">key</text>
+                <circle cx="270" cy="110" r="18" fill="#F6E6DE" stroke="#C85A32"/><text x="270" y="142">s3 data</text>
+              </g>
+            </svg>
+          </div>
+        </div>
+        <div class="case-body">
+          <div class="tag">Hackathon · Cloud IAM · 2026</div>
+          <h3>BreachGraph AI</h3>
+          <p>Finds privilege-escalation paths from cloud identities to sensitive data, then re-runs the analysis to verify every AI-proposed least-privilege fix before it is accepted.</p>
+          <div class="case-foot"><span class="yr">Python · AWS IAM · LLM agent</span><span class="go">View on GitHub <i>↗</i></span></div>
+        </div>
+      </a>
+
+      <!-- ===== CASE 3 ===== SWAP LINK: point to your Network+ project write-up or LinkedIn project -->
+      <a class="case narrow rv" href="#">
+        <div class="thumb">
+          <div class="mock">
+            <svg viewBox="0 0 320 200" width="100%" height="100%" aria-hidden="true">
+              <g font-family="JetBrains Mono, monospace" font-size="9" fill="#55544F" text-anchor="middle">
+                <rect x="20" y="30" width="80" height="120" rx="6" fill="#fff" stroke="#141413"/><text x="60" y="166">Building A</text>
+                <rect x="120" y="60" width="80" height="90" rx="6" fill="#fff" stroke="#141413"/><text x="160" y="166">Building B</text>
+                <rect x="220" y="60" width="80" height="90" rx="6" fill="#fff" stroke="#141413"/><text x="260" y="166">Building C</text>
+                <g fill="#F3F2EC" stroke="#D6D5CE"><rect x="32" y="44" width="56" height="26" rx="3"/><rect x="32" y="77" width="56" height="26" rx="3"/><rect x="32" y="110" width="56" height="26" rx="3"/></g>
+                <text x="60" y="61">VLAN 10/20</text><text x="60" y="94">VLAN 30/40</text><text x="60" y="127">VLAN 50/60</text>
+                <text x="160" y="100">OSPF</text><text x="160" y="114">DHCP relay</text>
+                <text x="260" y="100">Router on</text><text x="260" y="114">a stick</text>
+              </g>
+              <g stroke="#C85A32" stroke-width="1.8" fill="none"><path d="M100 90 H120"/><path d="M200 105 H220"/><path d="M60 30 V16 H260 V60"/></g>
+              <g fill="#C85A32"><circle cx="110" cy="90" r="3.5"/><circle cx="210" cy="105" r="3.5"/><circle cx="160" cy="16" r="3.5"/></g>
+            </svg>
+          </div>
+        </div>
+        <div class="case-body">
+          <div class="tag">Network design · CompTIA Network+ · 2024</div>
+          <h3>Three-Building Office Network</h3>
+          <p>Designed and configured end-to-end connectivity for three buildings using per-department VLANs, OSPF routing, DHCP relay and router-on-a-stick inter-VLAN routing.</p>
+          <div class="case-foot"><span class="yr">Cisco · Subnetting · VLANs</span><span class="go">Case study <i>↗</i></span></div>
+        </div>
+      </a>
+
+      <!-- ===== CASE 4 ===== SWAP LINK: point to your lab write-up or incident reports -->
+      <a class="case wide rv" href="#">
+        <div class="thumb">
+          <div class="mock">
+            <div class="win">
+              <div class="win-bar"><i></i><i></i><i></i><span>soc-lab / suricata eve.json</span></div>
+              <div class="term">
+                <div><span class="c">$</span> tail -f /var/log/suricata/fast.log</div>
+                <div><span class="a">[**]</span> ET POLICY SMB lateral movement attempt <span class="c">10.0.2.15 → 10.0.2.21</span></div>
+                <div><span class="a">[**]</span> ET PHISHING credential form POST <span class="c">10.0.2.15 → ext</span></div>
+                <div><span class="c">$</span> zeek-cut id.orig_h id.resp_h service &lt; conn.log | sort | uniq -c</div>
+                <div>&nbsp;&nbsp;42 10.0.2.15 10.0.2.21 smb</div>
+                <div><span class="g">✓</span> incident report drafted: IR-003 lateral movement</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="case-body">
+          <div class="tag">Self-directed · Detection &amp; response</div>
+          <h3>Virtual Network &amp; Offensive Security Lab</h3>
+          <p>Built a Kali and Ubuntu lab to investigate phishing, ransomware and lateral-movement scenarios with Zeek and Suricata, and wrote an incident report for each one.</p>
+          <div class="case-foot"><span class="yr">Zeek · Suricata · Kali Linux</span><span class="go">Case study <i>↗</i></span></div>
+        </div>
+      </a>
+
+      <!-- ===== ADD THE AZURE PROJECT HERE =====
+           Copy any <a class="case ...">...</a> block above, paste it here, and edit the text.
+           Use class="case wide" and class="case narrow" in pairs so each row fills the width. -->
+
+    </div>
+  </div>
+</section>
+
+<!-- =================== PROCESS =================== -->
+<section id="process">
+  <div class="wrap">
+    <div class="grid12 sec-head">
+      <div class="eyebrow">02 / Process</div>
+      <h2>How I approach security work.</h2>
+    </div>
+    <div class="process rv">
+      <div class="step"><div class="n">01</div><h3>Scope &amp; threat model</h3><p>Agree what matters, what is in scope and what could realistically go wrong.</p></div>
+      <div class="step"><div class="n">02</div><h3>Least-privilege design</h3><p>Grant only the access each identity needs, and add a second guard where it counts.</p></div>
+      <div class="step"><div class="n">03</div><h3>Build &amp; test</h3><p>Manual, automated and end-to-end tests, with a regression test for every bug I fix.</p></div>
+      <div class="step"><div class="n">04</div><h3>Document &amp; hand off</h3><p>Clear reports, deployment guides and threat models your team can use without me.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== ABOUT =================== -->
+<section id="about">
+  <div class="wrap">
+    <div class="grid12 sec-head">
+      <div class="eyebrow">03 / About</div>
+      <h2>Offensive experience, defensive mindset.</h2>
+    </div>
+
+    <div class="grid12">
+      <div class="about-l rv">
+        <p>I'm Augustine, a cybersecurity practitioner focused on Microsoft cloud security, penetration testing and quality assurance.</p>
+        <p>I design least-privilege access in Microsoft Entra ID and Azure, test software thoroughly, and build custom tools that solve real security problems. Two penetration testing internships taught me how attackers move. Teaching CompTIA Network+ taught me to explain technical work clearly.</p>
+        <p>I hold the Certified Network Security Practitioner (CNSP) certification and a B.Sc. in Statistics from Joseph Sarwuan Tarka University, Makurdi.</p>
+
+        <div class="principles">
+          <div><span>01</span><div><b>Least privilege by default</b><p>If a tool only needs to read, it should be unable to write.</p></div></div>
+          <div><span>02</span><div><b>Test before you trust</b><p>Every workflow is checked end to end before anyone relies on it.</p></div></div>
+          <div><span>03</span><div><b>Explain it plainly</b><p>Findings are only useful when the reader knows exactly what to do next.</p></div></div>
+        </div>
+      </div>
+
+      <div class="about-r rv">
+        <!-- SWAP PHOTO: replace augustine.jpg with your new photo (same file name = no code change) -->
+        <figure class="portrait"><img src="augustine.jpg" alt="Portrait of Augustine Alfred Aba" loading="lazy" width="900" height="970"></figure>
+        <div class="eyebrow" style="margin-bottom:16px">Toolkit</div>
+        <div class="tool-group"><h4>Microsoft cloud identity</h4><div class="chips"><span>Entra ID</span><span>App registrations</span><span>Service principals</span><span>Azure RBAC</span><span>Custom roles</span><span>MFA</span><span>Defender for Cloud</span><span>Activity Log</span></div></div>
+        <div class="tool-group"><h4>Offensive security</h4><div class="chips"><span>Burp Suite</span><span>Nmap</span><span>SQLmap</span><span>BloodHound</span><span>CrackMapExec</span><span>Mimikatz</span><span>OWASP Top 10</span><span>MITRE ATT&amp;CK</span><span>Zeek</span><span>Suricata</span></div></div>
+        <div class="tool-group"><h4>QA &amp; testing</h4><div class="chips"><span>Manual &amp; exploratory</span><span>Regression &amp; UAT</span><span>Usability testing</span><span>Test case design</span><span>Jira</span><span>pytest</span><span>Vitest</span><span>E2E smoke tests</span><span>GitHub Actions</span></div></div>
+        <div class="tool-group"><h4>Building tools</h4><div class="chips"><span>Python</span><span>FastAPI</span><span>TypeScript</span><span>React</span><span>PostgreSQL</span><span>REST APIs</span><span>Docker</span><span>LLM integration</span></div></div>
+        <div class="tool-group"><h4>IT &amp; networking</h4><div class="chips"><span>TCP/IP</span><span>Routing &amp; switching</span><span>Cisco</span><span>Wireshark</span><span>Windows</span><span>PowerShell</span><span>Troubleshooting</span></div></div>
+      </div>
+    </div>
+
+    <!-- Experience timeline -->
+    <div class="timeline rv">
+      <div class="eyebrow" style="margin-bottom:16px">Experience</div>
+      <div class="tl-row"><div class="tl-yr">2026 – Now</div><div class="tl-role">Freelance Cloud Security Tools Developer<small>Cloud security consultancy · Remote</small></div><div class="tl-desc">Built CloudSecura end to end: multi-tenant Entra ID app with a custom 7-permission read role, MFA and Argon2id for its own users, 536 automated tests, threat model and product guide.</div></div>
+      <div class="tl-row"><div class="tl-yr">2025</div><div class="tl-role">Penetration Testing Intern<small>RedyNox Security · Remote</small></div><div class="tl-desc">Internal and external network assessments, Active Directory exploitation and red team exercises based on MITRE ATT&amp;CK.</div></div>
+      <div class="tl-row"><div class="tl-yr">2024 – 2025</div><div class="tl-role">CompTIA Network+ Instructor<small>New Horizons · Lagos</small></div><div class="tl-desc">Prepared 30+ students for Network+ with an 85% pass rate, and ran hands-on fault-finding labs with Cisco devices and Wireshark.</div></div>
+      <div class="tl-row"><div class="tl-yr">2024</div><div class="tl-role">Penetration Testing Intern<small>Hacktify Security · Remote</small></div><div class="tl-desc">Web application penetration tests with Burp Suite, SQLmap and Nmap, and professional reports on OWASP Top 10 findings.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== RECOMMENDATION =================== -->
+<section id="kind-words">
+  <div class="wrap">
+    <div class="grid12 sec-head">
+      <div class="eyebrow">04 / Recommendation</div>
+      <h2>What people I've worked with say.</h2>
+    </div>
+    <!-- ADD MORE: copy this whole <figure class="quote ..."> block for each new recommendation -->
+    <figure class="quote grid12 rv">
+      <blockquote>I appreciate the contribution made during the testing exercise and would recommend him to teams seeking support with usability testing and digital product evaluation.</blockquote>
+      <figcaption>
+        <span><b>Agnes Dennis</b> · Product Designer</span>
+        <span>Usability testing of BlackCountry's mobile and web apps</span>
+        <a class="btn sm" href="recommendation-usability-testing.pdf" target="_blank" rel="noopener">Read the full letter <span class="arr">↗</span></a>
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- =================== CONTACT =================== -->
+<section id="contact" class="contact">
+  <div class="wrap">
+    <div class="eyebrow">05 / Contact</div>
+    <h2 class="cta">Let's build something <em>secure</em> together.</h2>
+    <div class="contact-row">
+      <a class="mail" href="mailto:austinaba2@gmail.com">austinaba2@gmail.com</a>
+      <button class="btn sm" id="copybtn" type="button">Copy email</button>
+      <span class="copied" id="copied" role="status">Copied</span>
+    </div>
+    <div class="contact-row" style="margin-top:22px">
+      <a class="btn" href="https://www.linkedin.com/in/iamcybertech" target="_blank" rel="noopener">LinkedIn <span class="arr">↗</span></a>
+      <a class="btn" href="https://github.com/cyber39glt" target="_blank" rel="noopener">GitHub <span class="arr">↗</span></a>
+      <a class="btn" href="resume.pdf" target="_blank" rel="noopener">Resume <span class="arr">↗</span></a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Augustine Alfred Aba</span>
+    <span>Lagos, Nigeria · Working remotely worldwide</span>
+    <a href="#top">Back to top ↑</a>
+  </div>
+</footer>
+
+<script>
+  // Mobile menu
+  const menuBtn = document.getElementById('menubtn'), links = document.getElementById('navlinks');
+  menuBtn.addEventListener('click', () => {
+    const open = links.classList.toggle('open');
+    menuBtn.setAttribute('aria-expanded', open);
+  });
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { links.classList.remove('open'); menuBtn.setAttribute('aria-expanded', false); }));
+
+  // Highlight the nav link for the section on screen
+  const navMap = {};
+  links.querySelectorAll('a').forEach(a => navMap[a.getAttribute('href').slice(1)] = a);
+  const navObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        Object.values(navMap).forEach(a => a.classList.remove('active'));
+        if (navMap[e.target.id]) navMap[e.target.id].classList.add('active');
+      }
+    });
+  }, { rootMargin: '-45% 0px -50% 0px' });
+  ['work','process','about','contact'].forEach(id => { const el = document.getElementById(id); if (el) navObserver.observe(el); });
+
+  // Fade sections in as you scroll
+  const rvObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); rvObserver.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.rv').forEach(el => rvObserver.observe(el));
+
+  // Copy email button
+  const EMAIL = 'austinaba2@gmail.com';
+  document.getElementById('copybtn').addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(EMAIL); }
+    catch (e) { const t = document.createElement('textarea'); t.value = EMAIL; document.body.appendChild(t); t.select(); document.execCommand('copy'); t.remove(); }
+    const c = document.getElementById('copied'); c.classList.add('show'); setTimeout(() => c.classList.remove('show'), 1800);
+  });
+</script>
+</body>
+</html>
